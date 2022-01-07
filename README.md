@@ -11,7 +11,6 @@ module "kms" {
   source = "native-cube/kms/aws"
   version = "~> 1.0.0"
 
-  enabled = true
   description             = "KMS test description"
   alias_name              = "mykey"
   deletion_window_in_days = 7
@@ -22,6 +21,10 @@ module "kms" {
   }
 }
 ```
+
+## Examples
+
+* [KMS](https://github.com/native-cube/terraform-aws-kms/tree/main/examples/core)
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
