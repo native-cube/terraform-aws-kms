@@ -6,7 +6,7 @@ resource "aws_kms_key" "main" {
   bypass_policy_lockout_safety_check = var.bypass_policy_lockout_safety_check
   is_enabled                         = var.is_enabled
   enable_key_rotation                = var.enable_key_rotation
-  policy                             = var.policy != "" ? var.policy : null
+  policy                             = var.policy
   multi_region                       = var.multi_region
 
   tags = var.tags
