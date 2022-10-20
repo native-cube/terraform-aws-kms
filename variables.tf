@@ -36,7 +36,7 @@ variable "enable_key_rotation" {
 
 variable "policy" {
   type        = string
-  default     = ""
+  default     = null
   description = "A valid policy JSON document. For more information about building AWS IAM policy documents with Terraform."
 }
 
