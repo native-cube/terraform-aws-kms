@@ -1,0 +1,6 @@
+#:schema https://developers.openai.com/codex/config-schema.json
+
+# Project-local Codex defaults for this Terraform module.
+# Durable engineering guidance lives in ../Agents.md.
+sandbox_mode = "workspace-write"
+approval_policy = "on-request"
