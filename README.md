@@ -42,11 +42,7 @@ Set `alias_name` or `alias_name_prefix` to create an alias. If neither is set, t
 
 | Name | Version |
 | ---- | ------- |
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.51.0 |
-
-## Modules
-
-No modules.
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.0 |
 
 ## Resources
 

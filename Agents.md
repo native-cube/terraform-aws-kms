@@ -21,7 +21,8 @@ Run these checks before handing work back when the required tools are available:
 - `terraform fmt -check -recursive`
 - `terraform init -backend=false -upgrade`
 - `terraform validate`
-- `terraform-docs markdown table .`
+- `terraform test -no-color`
+- `scripts/terraform-docs.sh --check`
 
 If `pre-commit` and `tflint` are installed, also run:
 

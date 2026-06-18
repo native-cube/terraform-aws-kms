@@ -1,0 +1,59 @@
+name: Terraform PR Checks
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+
+permissions:
+  contents: read
+
+jobs:
+  terraform:
+    name: Terraform
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v4.0.1
+        with:
+          terraform_version: 1.15.6
+          terraform_wrapper: false
+
+      - name: Install terraform-docs
+        env:
+          TERRAFORM_DOCS_VERSION: 0.24.0
+        run: |
+          curl -sSLo /tmp/terraform-docs.tar.gz "https://github.com/terraform-docs/terraform-docs/releases/download/v${TERRAFORM_DOCS_VERSION}/terraform-docs-v${TERRAFORM_DOCS_VERSION}-linux-amd64.tar.gz"
+          tar -xzf /tmp/terraform-docs.tar.gz -C /tmp terraform-docs
+          sudo install -m 0755 /tmp/terraform-docs /usr/local/bin/terraform-docs
+
+      - name: Terraform fmt
+        run: terraform fmt -check -recursive
+
+      - name: Check generated docs
+        run: scripts/terraform-docs.sh --check
+
+      - name: Terraform init
+        run: terraform init -backend=false
+
+      - name: Terraform validate
+        run: terraform validate
+
+      - name: Terraform test
+        run: terraform test -no-color
+
+      - name: Validate examples
+        run: |
+          for example in examples/*; do
+            if [ -d "$example" ]; then
+              terraform -chdir="$example" init -backend=false
+              terraform -chdir="$example" validate
+            fi
+          done
