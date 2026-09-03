@@ -88,3 +88,73 @@ run "rejects_xks_key_without_custom_key_store" {
     var.xks_key_id
   ]
 }
+
+run "rejects_invalid_key_type" {
+  command = plan
+
+  variables {
+    key_type = "aws_owned"
+  }
+
+  expect_failures = [
+    var.key_type
+  ]
+}
+
+run "rejects_replica_without_primary" {
+  command = plan
+
+  variables {
+    key_type = "replica"
+  }
+
+  expect_failures = [
+    var.primary_key_arn
+  ]
+}
+
+run "rejects_key_material_for_standard_key" {
+  command = plan
+
+  variables {
+    key_material_base64 = "MDEyMzQ1Njc4OWFiY2RlZg=="
+  }
+
+  expect_failures = [
+    var.key_material_base64
+  ]
+}
+
+run "rejects_invalid_additional_alias" {
+  command = plan
+
+  variables {
+    aliases = {
+      invalid = {
+        name        = "one"
+        name_prefix = "two-"
+      }
+    }
+  }
+
+  expect_failures = [
+    var.aliases
+  ]
+}
+
+run "rejects_empty_grant_operations" {
+  command = plan
+
+  variables {
+    grants = {
+      invalid = {
+        grantee_principal = "arn:aws:iam::123456789012:role/application"
+        operations        = []
+      }
+    }
+  }
+
+  expect_failures = [
+    var.grants
+  ]
+}
