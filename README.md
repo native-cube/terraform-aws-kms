@@ -20,7 +20,7 @@ Use a separate module call for each independent key. For replicas, set `primary_
 ```hcl
 module "kms" {
   source  = "native-cube/kms/aws"
-  version = "~> 2.0"
+  version = "~> 2.1"
 
   description             = "Orders data encryption key"
   deletion_window_in_days = 30
@@ -81,7 +81,7 @@ The module accepts an existing `custom_key_store_id` and optional `xks_key_id`, 
 
 ## Compatibility
 
-The module requires Terraform 1.9 or newer and HashiCorp AWS provider 6.62 or newer. Root configurations should set their own compatible upper bound and commit a dependency lock file. Existing standard keys are migrated from `aws_kms_key.main` to `aws_kms_key.main[0]` by the included `moved` block. The default remains a standard symmetric key, and the legacy single-alias inputs and outputs remain supported.
+Module version 2.1.0 requires Terraform 1.9 or newer and HashiCorp AWS provider 6.62 or newer. Root configurations should set their own compatible upper bound and commit a dependency lock file. Existing standard keys are migrated from `aws_kms_key.main` to `aws_kms_key.main[0]` by the included `moved` block. The default remains a standard symmetric key, and the legacy single-alias inputs and outputs remain supported.
 
 ## Examples
 
